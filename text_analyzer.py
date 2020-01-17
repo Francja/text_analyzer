@@ -1,6 +1,7 @@
 import requests
 
 URL = "http://s3.zylowski.net/public/input/6.txt"
+FILENAME = "file.txt"
 
 
 def menu():
@@ -19,12 +20,28 @@ def menu():
 
 def download_file(url):
     r = requests.get(url)
-    with open('file.txt', 'w', encoding='utf8') as f:
+    with open(FILENAME, 'w', encoding='utf8') as f:
         f.write(r.text)
 
 
+def open_file(filename):
+    try:
+        with open(filename, 'r') as file:
+            return file.read()
+    except FileNotFoundError:
+        print("Error: File %s not found." % FILENAME)
+
+
+def count_letters(text):
+    num_letters = 0
+    for char in text:
+        if char.isalpha():
+            num_letters +=1
+    return num_letters
+
+
 if __name__ == "__main__":
-    download_file(URL)
+    #download_file(URL)
     while True:
         try:
             choice = int(menu())
@@ -38,3 +55,6 @@ if __name__ == "__main__":
         if choice == 1:
             download_file(URL)
             print("File downloaded.")
+        elif choice == 2:
+            letters = count_letters(open_file(FILENAME))
+            print("Number of letters in the file: %i" % letters)
