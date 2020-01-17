@@ -1,4 +1,5 @@
 import requests
+import string
 
 URL = "http://s3.zylowski.net/public/input/6.txt"
 FILENAME = "file.txt"
@@ -32,6 +33,12 @@ def count_letters(text):
     return num_letters
 
 
+def count_words(text):
+    num_words = sum([i.strip(string.punctuation).isalpha() for i in text.split()])
+    #list comprehension
+    return num_words
+
+
 if __name__ == "__main__":
     #download_file(URL)
     while True:
@@ -56,3 +63,12 @@ if __name__ == "__main__":
                 continue
             letters = count_letters(text)
             print("Number of letters in the file: %i" % letters)
+        elif choice == 3:
+            try:
+                with open(FILENAME, 'r') as file:
+                    text = file.read()
+            except FileNotFoundError:
+                print("ERROR: File %s not found. Please download the file first." % FILENAME)
+                continue
+            words = count_words(text)
+            print("Number of words in the file: %i" % words)
