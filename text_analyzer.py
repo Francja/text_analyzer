@@ -24,14 +24,6 @@ def download_file(url):
         f.write(r.text)
 
 
-def open_file(filename):
-    try:
-        with open(filename, 'r') as file:
-            return file.read()
-    except FileNotFoundError:
-        print("Error: File %s not found." % FILENAME)
-
-
 def count_letters(text):
     num_letters = 0
     for char in text:
@@ -46,15 +38,21 @@ if __name__ == "__main__":
         try:
             choice = int(menu())
             if choice<1 or choice>8:
-                print("You typed incorrect number. Select option by typing 1-8.")
+                print("ERROR: You typed incorrect number. Select option by typing 1-8.")
                 continue
         except ValueError:
-            print("You didn't type number. Select option by typing 1-8.")
+            print("ERROR: You didn't type number. Select option by typing 1-8.")
             continue
         print("Selected option: %s" % choice)
         if choice == 1:
             download_file(URL)
             print("File downloaded.")
         elif choice == 2:
-            letters = count_letters(open_file(FILENAME))
+            try:
+                with open(FILENAME, 'r') as file:
+                    text = file.read()
+            except FileNotFoundError:
+                print("ERROR: File %s not found. Please download the file first." % FILENAME)
+                continue
+            letters = count_letters(text)
             print("Number of letters in the file: %i" % letters)
