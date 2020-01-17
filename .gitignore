@@ -4,3 +4,5 @@
 venv
 #python files
 *.pyc
+#downloaded file
+file.txt
