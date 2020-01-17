@@ -3,6 +3,7 @@ import string
 
 URL = "http://s3.zylowski.net/public/input/6.txt"
 FILENAME = "file.txt"
+PUNCTUATION = ".,!?:;()[]\"\'"
 
 
 def menu():
@@ -38,6 +39,13 @@ def count_words(text):
     #list comprehension
     return num_words
 
+def count_punctuation(text):
+    num_punct = 0
+    for x in text:
+        if x in PUNCTUATION:
+            num_punct += 1
+    return num_punct
+
 
 if __name__ == "__main__":
     #download_file(URL)
@@ -72,3 +80,12 @@ if __name__ == "__main__":
                 continue
             words = count_words(text)
             print("Number of words in the file: %i" % words)
+        elif choice == 4:
+            try:
+                with open(FILENAME, 'r') as file:
+                    text = file.read()
+            except FileNotFoundError:
+                print("ERROR: File %s not found. Please download the file first." % FILENAME)
+                continue
+            puncts = count_punctuation(text)
+            print("Number of punctuation marks in the file: %i" % puncts)
