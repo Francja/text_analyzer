@@ -92,8 +92,4 @@ if __name__ == "__main__":
         elif choice == 8:
             print("Selected option %s not yet implemented" % choice)  # TO DO, REPLACE AFTER IMPLEMENTATION
             
-            
-            
-            
-            
-            dobry
+ 
