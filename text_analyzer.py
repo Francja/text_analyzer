@@ -62,30 +62,20 @@ if __name__ == "__main__":
         if choice == 1:
             download_file(URL)
             print("File downloaded.")
-        elif choice == 2:
+
+        elif choice == 2 or choice == 3 or choice == 4:
             try:
                 with open(FILENAME, 'r') as file:
                     text = file.read()
             except FileNotFoundError:
                 print("ERROR: File %s not found. Please download the file first." % FILENAME)
                 continue
-            letters = count_letters(text)
-            print("Number of letters in the file: %i" % letters)
-        elif choice == 3:
-            try:
-                with open(FILENAME, 'r') as file:
-                    text = file.read()
-            except FileNotFoundError:
-                print("ERROR: File %s not found. Please download the file first." % FILENAME)
-                continue
-            words = count_words(text)
-            print("Number of words in the file: %i" % words)
-        elif choice == 4:
-            try:
-                with open(FILENAME, 'r') as file:
-                    text = file.read()
-            except FileNotFoundError:
-                print("ERROR: File %s not found. Please download the file first." % FILENAME)
-                continue
-            puncts = count_punctuation(text)
-            print("Number of punctuation marks in the file: %i" % puncts)
+            if choice == 2:
+                letters = count_letters(text)
+                print("Number of letters in the file: %i" % letters)
+            elif choice == 3:
+                words = count_words(text)
+                print("Number of words in the file: %i" % words)
+            elif choice == 4:
+                punctuations = count_punctuation(text)
+                print("Number of punctuation marks in the file: %i" % punctuations)
