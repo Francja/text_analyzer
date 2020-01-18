@@ -1,7 +1,8 @@
 import requests
 import string
+from collections import Counter
 
-URL = "http://s3.zylowski.net/public/input/6.txt"
+URL = "http://s3.zylowski.net/public/input/7.txt"
 FILENAME = "file.txt"
 PUNCTUATION = ".,!?:;()[]\"\'"
 
@@ -15,7 +16,7 @@ def menu():
           "6. Generate report",
           "7. Save statistics to file",
           "8. Close the application",
-          sep = "\n"
+          sep="\n"
           )
     return input("Select option: ")
 
@@ -35,9 +36,9 @@ def count_letters(text):
 
 
 def count_words(text):
-    num_words = sum([i.strip(string.punctuation).isalpha() for i in text.split()])
-    #list comprehension
+    num_words = sum([i.strip(string.punctuation).isalpha() for i in text.split()])  # list comprehension
     return num_words
+
 
 def count_punctuation(text):
     num_punct = 0
@@ -47,8 +48,13 @@ def count_punctuation(text):
     return num_punct
 
 
+def get_report(text):
+    for c in string.ascii_uppercase:
+        counter = Counter(text.upper())
+        print("%s: %i" % (c, counter[c]))
+
+
 if __name__ == "__main__":
-    #download_file(URL)
     while True:
         try:
             choice = int(menu())
@@ -58,12 +64,10 @@ if __name__ == "__main__":
         except ValueError:
             print("ERROR: You didn't type number. Select option by typing 1-8.")
             continue
-        print("Selected option: %s" % choice)
         if choice == 1:
             download_file(URL)
             print("File downloaded.")
-
-        elif choice == 2 or choice == 3 or choice == 4:
+        elif 2 <= choice <= 6:
             try:
                 with open(FILENAME, 'r') as file:
                     text = file.read()
@@ -79,3 +83,12 @@ if __name__ == "__main__":
             elif choice == 4:
                 punctuations = count_punctuation(text)
                 print("Number of punctuation marks in the file: %i" % punctuations)
+            elif choice == 5:
+                print("Selected option %s not yet implemented" % choice)  # TO DO, REPLACE AFTER IMPLEMENTATION
+            elif choice == 6:
+                print("Number of occurrences of each letter in the text:")
+                get_report(text)
+        elif choice == 7:
+            print("Selected option %s not yet implemented" % choice)  # TO DO, REPLACE AFTER IMPLEMENTATION
+        elif choice == 8:
+            print("Selected option %s not yet implemented" % choice)  # TO DO, REPLACE AFTER IMPLEMENTATION
