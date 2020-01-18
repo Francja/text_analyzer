@@ -1,8 +1,8 @@
 # Pycharm files
 .idea
-#virtual env
+# virtual env
 venv
-#python files
+# python files
 *.pyc
-#downloaded file
+# downloaded file
 file.txt
