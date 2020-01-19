@@ -6,3 +6,5 @@ venv
 *.pyc
 # downloaded file
 file.txt
+# statistic file
+statystyki.txt

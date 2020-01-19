@@ -56,7 +56,7 @@ def get_report(text):
 
 
 def count_sentences(text):
-    return text.count('.')
+    return text.count('. ') + text.count('! ') + text.count('? ')
 
 
 def save_file(text):
@@ -110,12 +110,10 @@ if __name__ == "__main__":
                 print("Number of occurrences of each letter in the text:")
                 get_report(text_from_file)
             elif choice == 7:
-
                 words = "Number of words in the file: %i \n" % count_words(text_from_file)
                 letters = "Number of letters in the file: %i \n" % count_letters(text_from_file)
                 punctuations = "Number of punctuations in the file: %i \n" % count_punctuation(text_from_file)
                 sentences = "Number of sentences in the file: %i \n" % count_sentences(text_from_file)
-
                 save_file([words, letters, punctuations, sentences])
                 print("Saved FIle")
         elif choice == 8:

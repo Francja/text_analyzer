@@ -7,8 +7,9 @@ Program is used for analyzing the text files. It does the following:
 * counts number of punctuation marks in the file
 * generates report about usage of letters (A-Z)
 * saves the statistics into the file
-* clears all the data
+* closes the program and clears all the data
 ### Requirments
 * Python 3.7 
 ### How to run
-* `python text_analyzer.py`
+* `pip install requests` - install 'requests' package
+* `python text_analyzer.py` - runs program
