@@ -6,6 +6,7 @@ URL = "http://s3.zylowski.net/public/input/7.txt"
 FILENAME = "file.txt"
 PUNCTUATION = ".,!?:;()[]\"\'"
 
+RUNNING = True
 
 def menu():
     print("1. Download file",
@@ -30,7 +31,7 @@ def count_letters(text):
     num_letters = 0
     for char in text:
         if char.isalpha():
-            num_letters +=1
+            num_letters += 1
     return num_letters
 
 
@@ -53,8 +54,18 @@ def get_report(text):
         print("%s: %i" % (char, counter[char]))
 
 
+def count_sentences(text):
+    return text.count('.')
+
+
+def save_file(text):
+    file = open("statystyki.txt", 'w+')
+    file.writelines(text)
+    file.close()
+
+
 if __name__ == "__main__":
-    while True:
+    while RUNNING:
         try:
             choice = int(menu())
             if choice < 1 or choice > 8:
@@ -66,7 +77,7 @@ if __name__ == "__main__":
         if choice == 1:
             download_file(URL)
             print("File downloaded.")
-        elif 2 <= choice <= 6:
+        elif 2 <= choice <= 7:
             try:
                 with open(FILENAME, 'r') as file:
                     text_from_file = file.read()
@@ -83,11 +94,21 @@ if __name__ == "__main__":
                 punctuations = count_punctuation(text_from_file)
                 print("Number of punctuation marks in the file: %i" % punctuations)
             elif choice == 5:
-                print("Selected option %s not yet implemented" % choice)  # TO DO, REPLACE AFTER IMPLEMENTATION
+                sentences = count_sentences(text_from_file)
+                print("Number of sentences in the file: %s" % sentences)
             elif choice == 6:
                 print("Number of occurrences of each letter in the text:")
                 get_report(text_from_file)
-        elif choice == 7:
-            print("Selected option %s not yet implemented" % choice)  # TO DO, REPLACE AFTER IMPLEMENTATION
+            elif choice == 7:
+
+                words = "Number of words in the file: %i \n" % count_words(text_from_file)
+                letters = "Number of letters in the file: %i \n" % count_letters(text_from_file)
+                punctuations = "Number of punctuations in the file: %i \n" % count_punctuation(text_from_file)
+                sentences = "Number of sentences in the file: %i \n" % count_sentences(text_from_file)
+
+                save_file([words, letters, punctuations, sentences])
+                print("Saved FIle")
         elif choice == 8:
             print("Selected option %s not yet implemented" % choice)  # TO DO, REPLACE AFTER IMPLEMENTATION
+            print("App Closed")
+            RUNNING = False
