@@ -1,12 +1,13 @@
+import os
+import pathlib
 import requests
 import string
 from collections import Counter
 
 URL = "http://s3.zylowski.net/public/input/7.txt"
 FILENAME = "file.txt"
+STAT_FILENAME = "statystyki.txt"
 PUNCTUATION = ".,!?:;()[]\"\'"
-
-RUNNING = True
 
 def menu():
     print("1. Download file",
@@ -64,8 +65,17 @@ def save_file(text):
     file.close()
 
 
+def remove_files():
+    file_path = pathlib.Path(FILENAME)
+    if file_path.exists():
+        os.remove(file_path)
+    stat_file_path = pathlib.Path(STAT_FILENAME)
+    if stat_file_path.exists():
+        os.remove(stat_file_path)
+
+
 if __name__ == "__main__":
-    while RUNNING:
+    while True:
         try:
             choice = int(menu())
             if choice < 1 or choice > 8:
@@ -109,6 +119,5 @@ if __name__ == "__main__":
                 save_file([words, letters, punctuations, sentences])
                 print("Saved FIle")
         elif choice == 8:
-            print("Selected option %s not yet implemented" % choice)  # TO DO, REPLACE AFTER IMPLEMENTATION
-            print("App Closed")
-            RUNNING = False
+            remove_files()
+            break
